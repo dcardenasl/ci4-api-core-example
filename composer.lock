@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0bd29617d76c58426fe6db165cc8d1f",
+    "content-hash": "6eaf522c8ba80fd7803ebb3d029e1071",
     "packages": [
         {
             "name": "codeigniter4/framework",
@@ -276,6 +276,85 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "dcardenasl/ci4-api-scaffolding",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dcardenasl/ci4-api-scaffolding.git",
+                "reference": "d6e4c60988b168d4d3ba794ab86febd482368262"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dcardenasl/ci4-api-scaffolding/zipball/d6e4c60988b168d4d3ba794ab86febd482368262",
+                "reference": "d6e4c60988b168d4d3ba794ab86febd482368262",
+                "shasum": ""
+            },
+            "require": {
+                "codeigniter4/framework": "^4.6",
+                "dcardenasl/ci4-api-core": "^0.4.1",
+                "nikic/php-parser": "^5.0",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.95",
+                "phpstan/phpstan": "^2.0",
+                "phpunit/phpunit": "^10.5",
+                "spatie/phpunit-snapshot-assertions": "^5.0",
+                "zircote/swagger-php": "^4.10 || ^5.0 || ^6.0"
+            },
+            "suggest": {
+                "zircote/swagger-php": "Required by `swagger:generate` command (^4.10 || ^5 || ^6)"
+            },
+            "bin": [
+                "bin/make-crud.sh",
+                "bin/validate-crud.sh"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.3.x-dev"
+                },
+                "codeigniter4": {
+                    "commands": [
+                        "dcardenasl\\Ci4ApiScaffolding\\Commands\\MakeCrud",
+                        "dcardenasl\\Ci4ApiScaffolding\\Commands\\MakeCrudRemove",
+                        "dcardenasl\\Ci4ApiScaffolding\\Commands\\ModuleCheck",
+                        "dcardenasl\\Ci4ApiScaffolding\\Commands\\ScaffoldCheck",
+                        "dcardenasl\\Ci4ApiScaffolding\\Commands\\SwaggerGenerate"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "dcardenasl\\Ci4ApiScaffolding\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Cárdenas L.",
+                    "email": "code.dcl@gmail.com"
+                }
+            ],
+            "description": "CRUD scaffolding engine for CodeIgniter 4 APIs built on dcardenasl/ci4-api-core. Generates DTOs, services, controllers, migrations, routes, tests and OpenAPI docs via spark commands.",
+            "homepage": "https://github.com/dcardenasl/ci4-api-scaffolding",
+            "keywords": [
+                "code-generation",
+                "codeigniter4",
+                "crud",
+                "generator",
+                "scaffolding"
+            ],
+            "support": {
+                "issues": "https://github.com/dcardenasl/ci4-api-scaffolding/issues",
+                "source": "https://github.com/dcardenasl/ci4-api-scaffolding"
+            },
+            "time": "2026-05-10T07:32:04+00:00"
+        },
         {
             "name": "fakerphp/faker",
             "version": "v1.24.1",
