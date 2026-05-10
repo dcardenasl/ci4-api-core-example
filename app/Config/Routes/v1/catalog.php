@@ -6,6 +6,14 @@ $routes->group('catalog', ['namespace' => '\App\Controllers\Api\V1\Catalog'], fu
 
     // Auth & Admin Protected Group
     $routes->group('', ['filter' => []], function ($routes) {
+        // Product Routes
+        $routes->get('products', 'ProductController::index');
+        $routes->get('products/(:num)', 'ProductController::show/$1');
+        $routes->post('products', 'ProductController::create');
+        $routes->put('products/(:num)', 'ProductController::update/$1');
+        $routes->delete('products/(:num)', 'ProductController::delete/$1');
+
+
         // Category Routes
         $routes->get('categories', 'CategoryController::index');
         $routes->get('categories/(:num)', 'CategoryController::show/$1');
