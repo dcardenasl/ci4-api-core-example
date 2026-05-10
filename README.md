@@ -1,69 +1,220 @@
-# CodeIgniter 4 Application Starter
+# ci4-api-core-example
 
-## What is CodeIgniter?
+Exact output of [`dcardenasl/ci4-api-core`](https://packagist.org/packages/dcardenasl/ci4-api-core) + [`dcardenasl/ci4-api-scaffolding`](https://packagist.org/packages/dcardenasl/ci4-api-scaffolding) applied to a fresh `codeigniter4/appstarter` project.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+Two resources — **Categories** and **Products** — in a **Catalog** domain. The git history records each command as its own commit so you can read the exact diff of what each package generates vs what you write by hand.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+> **Scope of this repo:** scaffold output + one hand-written `enrichEntities()` method. Nothing more.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+---
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+## How this was built
 
-## Installation & updates
+**1. Create the CI4 project:**
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+```bash
+composer create-project codeigniter4/appstarter ci4-api-core-example
+cd ci4-api-core-example
+git init && git add . && git commit -m "chore: scaffold ci4 project with codeigniter4/appstarter"
+```
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+**2. Install the runtime library and wire the service factories:**
 
-## Setup
+```bash
+composer require dcardenasl/ci4-api-core:^0.4
+cp env .env   # fill in DB credentials
+php spark core:install
+```
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+Output of `core:install`:
 
-## Important Change with index.php
+```
+  ✓  Created  app/Config/ApiCoreServices.php
+  ✓  Patched  app/Config/Services.php (backup: Services.php.bak)
+  ✓  Patched  app/Config/Routes.php (backup: Routes.php.bak)
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+  ✓  Services::auditService()
+  ✓  Services::requestAuditContextFactory()
+  ✓  Services::requestDtoFactory()
+  ✓  Services::requestDataCollector()
+  ✓  Routes.php: GET /health
+```
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+`core:install` generates `app/Config/ApiCoreServices.php`, patches `app/Config/Services.php` (trait + request factory override), and injects a `GET /health` endpoint into `app/Config/Routes.php` backed by `HealthChecker::checkAll()`.
 
-**Please** read the user guide for a better explanation of how CI4 works!
+At this point `curl http://localhost:8080/health` already responds.
 
-## Repository Management
+**3. Install the scaffolding engine:**
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+```bash
+composer require --dev dcardenasl/ci4-api-scaffolding:^0.3
+```
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+**4. Generate both resources:**
 
-## Server Requirements
+```bash
+bash vendor/bin/make-crud.sh Category Catalog \
+  'name:string:required|searchable' \
+  yes
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+bash vendor/bin/make-crud.sh Product Catalog \
+  'name:string:required|searchable,price:decimal:required|filterable,description:text:permit_empty,category_id:int:required|filterable' \
+  yes
+```
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+The first `make-crud.sh` invocation also patches `app/Config/Routes.php` with a glob-based `api/v1` loader that auto-discovers all files under `Config/Routes/v1/`. Subsequent scaffolds are idempotent — the loader is only added once.
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+Each invocation also runs `php spark module:check <Resource> --domain <Domain>` automatically (or you can run it yourself):
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+```
+Module bootstrap check passed.
+```
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+**5. The only hand-written code:**
+
+`category_name` on `ProductResponseDTO` and this hook in `ProductService`:
+
+```php
+protected function enrichEntities(array $entities): array
+{
+    return (new RelationLabelLoader())->attachLabel(
+        $entities,
+        sourceField:  'category_id',
+        targetField:  'category_name',
+        relatedTable: 'categories',
+        relatedLabel: 'name',
+    );
+}
+```
+
+---
+
+## Generated structure
+
+```
+app/
+├── Config/
+│   ├── ApiCoreServices.php            ← core:install
+│   ├── CatalogDomainServices.php      ← make-crud (service factories)
+│   ├── Routes.php                     ← patched by core:install (/health) + make-crud (api/v1 loader)
+│   └── Routes/v1/
+│       └── catalog.php                ← make-crud (domain routes)
+│
+├── Controllers/Api/V1/Catalog/
+│   ├── CategoryController.php
+│   └── ProductController.php
+│
+├── DTO/
+│   ├── Request/Catalog/
+│   │   ├── CategoryCreateRequestDTO.php
+│   │   ├── CategoryIndexRequestDTO.php
+│   │   ├── CategoryUpdateRequestDTO.php
+│   │   ├── ProductCreateRequestDTO.php
+│   │   ├── ProductIndexRequestDTO.php
+│   │   └── ProductUpdateRequestDTO.php
+│   └── Response/Catalog/
+│       ├── CategoryResponseDTO.php
+│       └── ProductResponseDTO.php     ← + category_name (hand-written)
+│
+├── Database/Migrations/
+│   ├── ..._CreateCategoriesTable.php
+│   └── ..._CreateProductsTable.php
+│
+├── Documentation/Catalog/
+│   ├── CategoryEndpoints.php
+│   └── ProductEndpoints.php
+│
+├── Entities/
+│   ├── CategoryEntity.php
+│   └── ProductEntity.php
+│
+├── Interfaces/Catalog/
+│   ├── CategoryServiceInterface.php
+│   └── ProductServiceInterface.php
+│
+├── Language/{en,es}/
+│   ├── Categories.php
+│   └── Products.php
+│
+├── Models/
+│   ├── CategoryModel.php
+│   └── ProductModel.php
+│
+└── Services/Catalog/
+    ├── CategoryService.php
+    └── ProductService.php             ← + enrichEntities() (hand-written)
+```
+
+---
+
+## Routes.php after setup
+
+`app/Config/Routes.php` is patched automatically by two commands — no manual edits needed:
+
+```php
+// Injected by: php spark core:install
+// ci4-api-core: health route start
+$routes->get('health', static function () {
+    $checker = new \dcardenasl\Ci4ApiCore\Monitoring\HealthChecker();
+    $checks  = $checker->checkAll();
+    $status  = $checker->getOverallStatus($checks);
+
+    return response()->setJSON([
+        'status'    => $status,
+        'checks'    => $checks,
+        'timestamp' => date('Y-m-d H:i:s'),
+    ])->setStatusCode($status === 'unhealthy' ? 503 : 200);
+});
+// ci4-api-core: health route end
+
+// Injected by: first make-crud.sh invocation
+// ci4-api-scaffolding: api/v1 loader start
+$routes->group('api/v1', function ($routes) {
+    $routesDir = APPPATH . 'Config/Routes/v1';
+    if (is_dir($routesDir)) {
+        foreach (glob($routesDir . '/*.php') as $file) {
+            if (basename($file) === 'system.php') {
+                continue;
+            }
+            require $file;
+        }
+    }
+});
+// ci4-api-scaffolding: api/v1 loader end
+```
+
+Both patches are idempotent — re-running the commands leaves `Routes.php` unchanged.
+
+---
+
+## Commit history
+
+| Commit | What it represents |
+|--------|--------------------|
+| `chore: scaffold ci4 project with codeigniter4/appstarter` | Blank CI4 project — `composer create-project codeigniter4/appstarter` (v4.7.2) |
+| `feat: install and wire dcardenasl/ci4-api-core` | `composer require ^0.4` + `php spark core:install` |
+| `feat: install dcardenasl/ci4-api-scaffolding` | `composer require --dev ^0.3` |
+| `feat: scaffold categories crud with make-crud` | Full scaffold output for Category in Catalog domain |
+| `feat: scaffold products crud with make-crud` | Full scaffold output for Product in Catalog domain |
+| `feat: enrich products with category name via RelationLabelLoader` | Only hand-written code in this repo |
+| `docs: add README and env example` | This file |
+
+---
+
+## Requirements
+
+- PHP 8.2+
+- MySQL 8+ (or MariaDB 10.6+)
+- Composer 2.x
+
+## Quick start
+
+```bash
+cp .env.example .env
+# Edit .env: set database credentials
+php spark migrate
+php spark serve
+curl http://localhost:8080/health
+curl http://localhost:8080/api/v1/catalog/categories
+curl http://localhost:8080/api/v1/catalog/products
+```
