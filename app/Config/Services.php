@@ -5,6 +5,7 @@ namespace Config;
 
 // ci4-api-core: require start
 require_once __DIR__ . '/ApiCoreServices.php';
+require_once __DIR__ . '/CatalogDomainServices.php';
 // ci4-api-core: require end
 use CodeIgniter\Config\BaseService;
 
@@ -25,6 +26,7 @@ class Services extends BaseService
 {
     // ci4-api-core: trait start
     use ApiCoreServices;
+    use CatalogDomainServices;
     // ci4-api-core: trait end
 
     /*

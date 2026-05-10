@@ -20,3 +20,17 @@ $routes->get('health', static function () {
     ])->setStatusCode($status === 'unhealthy' ? 503 : 200);
 });
 // ci4-api-core: health route end
+
+// ci4-api-scaffolding: api/v1 loader start
+$routes->group('api/v1', function ($routes) {
+    $routesDir = APPPATH . 'Config/Routes/v1';
+    if (is_dir($routesDir)) {
+        foreach (glob($routesDir . '/*.php') as $file) {
+            if (basename($file) === 'system.php') {
+                continue;
+            }
+            require $file;
+        }
+    }
+});
+// ci4-api-scaffolding: api/v1 loader end
