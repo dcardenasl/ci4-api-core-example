@@ -2,6 +2,10 @@
 
 namespace Config;
 
+
+// ci4-api-core: require start
+require_once __DIR__ . '/ApiCoreServices.php';
+// ci4-api-core: require end
 use CodeIgniter\Config\BaseService;
 
 /**
@@ -19,6 +23,10 @@ use CodeIgniter\Config\BaseService;
  */
 class Services extends BaseService
 {
+    // ci4-api-core: trait start
+    use ApiCoreServices;
+    // ci4-api-core: trait end
+
     /*
      * public static function example($getShared = true)
      * {
@@ -29,4 +37,25 @@ class Services extends BaseService
      *     return new \CodeIgniter\Example();
      * }
      */
+
+    // ci4-api-core: request override start
+    /**
+     * @param \Config\App|bool $getShared
+     */
+    public static function request($getShared = true): \dcardenasl\Ci4ApiCore\Http\ApiRequest
+    {
+        if (is_bool($getShared) && $getShared) {
+            return static::getSharedInstance('request');
+        }
+
+        $config = $getShared instanceof \Config\App ? $getShared : config('App');
+
+        return new \dcardenasl\Ci4ApiCore\Http\ApiRequest(
+            $config,
+            static::uri(),
+            'php://input',
+            new \CodeIgniter\HTTP\UserAgent()
+        );
+    }
+    // ci4-api-core: request override end
 }

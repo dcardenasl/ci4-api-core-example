@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f5cce40800fa5dae1504b9364f585e6a",
+    "content-hash": "a0bd29617d76c58426fe6db165cc8d1f",
     "packages": [
         {
             "name": "codeigniter4/framework",
@@ -82,6 +82,86 @@
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
             "time": "2026-03-24T18:26:09+00:00"
+        },
+        {
+            "name": "dcardenasl/ci4-api-core",
+            "version": "v0.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dcardenasl/ci4-api-core.git",
+                "reference": "5cae68d6263f848fe4a7b5b715b41c7ddecccc27"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dcardenasl/ci4-api-core/zipball/5cae68d6263f848fe4a7b5b715b41c7ddecccc27",
+                "reference": "5cae68d6263f848fe4a7b5b715b41c7ddecccc27",
+                "shasum": ""
+            },
+            "require": {
+                "codeigniter4/framework": "^4.6",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.95",
+                "infection/infection": "^0.29",
+                "monolog/monolog": "^3.5",
+                "phpstan/phpstan": "^2.0",
+                "phpunit/phpunit": "^10.5",
+                "spatie/phpunit-snapshot-assertions": "^5.0",
+                "zircote/swagger-php": "^4.10 || ^5.0 || ^6.0"
+            },
+            "suggest": {
+                "ext-redis": "Required to use RedisQueueManager as an alternative to the DB-backed QueueManager",
+                "monolog/monolog": "Required for JSON structured logging via JsonFormatter / MonologHandler (^3.5)",
+                "zircote/swagger-php": "Required to auto-generate OpenAPI specs from DTO/Controller annotations (^4.10 || ^5.0 || ^6.0)"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.4.x-dev"
+                },
+                "codeigniter4": {
+                    "commands": [
+                        "dcardenasl\\Ci4ApiCore\\Commands\\CoreCheck",
+                        "dcardenasl\\Ci4ApiCore\\Commands\\CoreInstall",
+                        "dcardenasl\\Ci4ApiCore\\Commands\\EnvCheck",
+                        "dcardenasl\\Ci4ApiCore\\Commands\\QueueWork"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Helpers/date.php"
+                ],
+                "psr-4": {
+                    "dcardenasl\\Ci4ApiCore\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Cárdenas L.",
+                    "email": "code.dcl@gmail.com"
+                }
+            ],
+            "description": "DTO-first API runtime foundation for CodeIgniter 4: base classes, HTTP layer, services, repositories, filters, audit chain, and queue. Powers ci4-api-starter and ci4-domain-starter. Pair with dcardenasl/ci4-api-scaffolding for CRUD generation.",
+            "homepage": "https://github.com/dcardenasl/ci4-api-core",
+            "keywords": [
+                "api",
+                "base-classes",
+                "codeigniter4",
+                "dto",
+                "foundation",
+                "rest"
+            ],
+            "support": {
+                "issues": "https://github.com/dcardenasl/ci4-api-core/issues",
+                "source": "https://github.com/dcardenasl/ci4-api-core"
+            },
+            "time": "2026-05-10T07:26:34+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
