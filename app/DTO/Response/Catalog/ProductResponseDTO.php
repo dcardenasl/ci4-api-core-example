@@ -25,6 +25,8 @@ final readonly class ProductResponseDTO implements DataTransferObjectInterface
         public string $description,
         #[OA\Property(description: 'category_id', type: 'integer')]
         public int $category_id,
+        #[OA\Property(description: 'category_name', type: 'string', nullable: true)]
+        public ?string $category_name = null,
         #[OA\Property(property: 'created_at', description: 'Creation timestamp', example: '2026-02-26 12:00:00', nullable: true)]
         public ?string $createdAt = null,
         #[OA\Property(property: 'updated_at', description: 'Last update timestamp', example: '2026-02-26 12:00:00', nullable: true)]
@@ -39,6 +41,7 @@ final readonly class ProductResponseDTO implements DataTransferObjectInterface
             price: (float) ($data['price'] ?? 0),
             description: (string) ($data['description'] ?? ''),
             category_id: (int) ($data['category_id'] ?? 0),
+            category_name: $data['category_name'] ?? null,
             createdAt: $data['created_at'] ?? null,
             updatedAt: $data['updated_at'] ?? null,
         );
@@ -52,6 +55,7 @@ final readonly class ProductResponseDTO implements DataTransferObjectInterface
             'price' => $this->price,
             'description' => $this->description,
             'category_id' => $this->category_id,
+            'category_name' => $this->category_name,
             'created_at' => $this->createdAt,
             'updated_at' => $this->updatedAt,
         ];
