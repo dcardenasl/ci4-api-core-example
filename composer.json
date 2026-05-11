@@ -1,13 +1,27 @@
 {
-    "name": "codeigniter4/appstarter",
-    "description": "CodeIgniter4 starter app",
+    "name": "dcardenasl/ci4-api-core-example",
+    "description": "Working example of a REST API built with ci4-api-core + ci4-api-scaffolding. Demonstrates a Catalog domain (Categories, Products) scaffolded in minutes with zero boilerplate.",
     "license": "MIT",
     "type": "project",
-    "homepage": "https://codeigniter.com",
+    "keywords": [
+        "codeigniter4",
+        "codeigniter",
+        "ci4",
+        "example",
+        "demo",
+        "reference",
+        "rest-api",
+        "api",
+        "dto",
+        "scaffolding",
+        "crud",
+        "domain-driven-design",
+        "service-layer"
+    ],
+    "homepage": "https://github.com/dcardenasl/ci4-api-core-example",
     "support": {
-        "forum": "https://forum.codeigniter.com/",
-        "source": "https://github.com/codeigniter4/CodeIgniter4",
-        "slack": "https://codeigniterchat.slack.com"
+        "issues": "https://github.com/dcardenasl/ci4-api-core-example/issues",
+        "source": "https://github.com/dcardenasl/ci4-api-core-example"
     },
     "require": {
         "php": "^8.2",
