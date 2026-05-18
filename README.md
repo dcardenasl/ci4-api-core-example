@@ -21,7 +21,7 @@ git init && git add . && git commit -m "chore: scaffold ci4 project with codeign
 **2. Install the runtime library and wire the service factories:**
 
 ```bash
-composer require dcardenasl/ci4-api-core:^0.4
+composer require dcardenasl/ci4-api-core:^0.5
 cp env .env   # fill in DB credentials
 php spark core:install
 ```
@@ -47,7 +47,7 @@ At this point `curl http://localhost:8080/health` already responds.
 **3. Install the scaffolding engine:**
 
 ```bash
-composer require --dev dcardenasl/ci4-api-scaffolding:^0.3
+composer require --dev dcardenasl/ci4-api-scaffolding:^0.2
 ```
 
 **4. Generate both resources:**
@@ -192,8 +192,8 @@ Both patches are idempotent — re-running the commands leaves `Routes.php` unch
 | Commit | What it represents |
 |--------|--------------------|
 | `chore: scaffold ci4 project with codeigniter4/appstarter` | Blank CI4 project — `composer create-project codeigniter4/appstarter` (v4.7.2) |
-| `feat: install and wire dcardenasl/ci4-api-core` | `composer require ^0.4` + `php spark core:install` |
-| `feat: install dcardenasl/ci4-api-scaffolding` | `composer require --dev ^0.3` |
+| `feat: install and wire dcardenasl/ci4-api-core` | `composer require ^0.5` + `php spark core:install` |
+| `feat: install dcardenasl/ci4-api-scaffolding` | `composer require --dev ^0.2` |
 | `feat: scaffold categories crud with make-crud` | Full scaffold output for Category in Catalog domain |
 | `feat: scaffold products crud with make-crud` | Full scaffold output for Product in Catalog domain |
 | `feat: enrich products with category name via RelationLabelLoader` | Only hand-written code in this repo |
