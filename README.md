@@ -47,7 +47,7 @@ At this point `curl http://localhost:8080/health` already responds.
 **3. Install the scaffolding engine:**
 
 ```bash
-composer require --dev dcardenasl/ci4-api-scaffolding:^0.2
+composer require --dev dcardenasl/ci4-api-scaffolding:^0.3
 ```
 
 **4. Generate both resources:**
@@ -193,7 +193,7 @@ Both patches are idempotent — re-running the commands leaves `Routes.php` unch
 |--------|--------------------|
 | `chore: scaffold ci4 project with codeigniter4/appstarter` | Blank CI4 project — `composer create-project codeigniter4/appstarter` (v4.7.2) |
 | `feat: install and wire dcardenasl/ci4-api-core` | `composer require ^0.5` + `php spark core:install` |
-| `feat: install dcardenasl/ci4-api-scaffolding` | `composer require --dev ^0.2` |
+| `feat: install dcardenasl/ci4-api-scaffolding` | `composer require --dev ^0.3` |
 | `feat: scaffold categories crud with make-crud` | Full scaffold output for Category in Catalog domain |
 | `feat: scaffold products crud with make-crud` | Full scaffold output for Product in Catalog domain |
 | `feat: enrich products with category name via RelationLabelLoader` | Only hand-written code in this repo |
