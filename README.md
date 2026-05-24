@@ -21,7 +21,7 @@ git init && git add . && git commit -m "chore: scaffold ci4 project with codeign
 **2. Install the runtime library and wire the service factories:**
 
 ```bash
-composer require dcardenasl/ci4-api-core:^0.5
+composer require dcardenasl/ci4-api-core:^0.7
 cp env .env   # fill in DB credentials
 php spark core:install
 ```
@@ -47,7 +47,7 @@ At this point `curl http://localhost:8080/health` already responds.
 **3. Install the scaffolding engine:**
 
 ```bash
-composer require --dev dcardenasl/ci4-api-scaffolding:^0.3
+composer require --dev dcardenasl/ci4-api-scaffolding:^0.5
 ```
 
 **4. Generate both resources:**
