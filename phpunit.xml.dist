@@ -26,6 +26,15 @@
         <testsuite name="App">
             <directory>./tests</directory>
         </testsuite>
+        <testsuite name="Unit">
+            <directory>./tests/unit</directory>
+        </testsuite>
+        <testsuite name="Integration">
+            <directory>./tests/Integration</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory>./tests/Feature</directory>
+        </testsuite>
     </testsuites>
     <logging>
         <testdoxHtml outputFile="build/logs/testdox.html"/>

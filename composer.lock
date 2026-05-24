@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "590e9adb27b7e43b560fc6136d4356a6",
+    "content-hash": "73d7f4fcb46d3936348a937acaca35fb",
     "packages": [
         {
             "name": "codeigniter4/framework",
@@ -85,20 +85,20 @@
         },
         {
             "name": "dcardenasl/ci4-api-core",
-            "version": "v0.5.0",
+            "version": "v0.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dcardenasl/ci4-api-core.git",
-                "reference": "57a6f438331b1c3b3fc22408f479340512836688"
+                "reference": "ca3061f61799d3e8f343ff71931ee867b96952a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dcardenasl/ci4-api-core/zipball/57a6f438331b1c3b3fc22408f479340512836688",
-                "reference": "57a6f438331b1c3b3fc22408f479340512836688",
+                "url": "https://api.github.com/repos/dcardenasl/ci4-api-core/zipball/ca3061f61799d3e8f343ff71931ee867b96952a2",
+                "reference": "ca3061f61799d3e8f343ff71931ee867b96952a2",
                 "shasum": ""
             },
             "require": {
-                "codeigniter4/framework": "^4.6",
+                "codeigniter4/framework": "^4.7",
                 "php": "^8.2"
             },
             "require-dev": {
@@ -119,7 +119,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "0.4.x-dev"
+                    "dev-main": "0.7.x-dev"
                 },
                 "codeigniter4": {
                     "commands": [
@@ -170,7 +170,7 @@
                 "issues": "https://github.com/dcardenasl/ci4-api-core/issues",
                 "source": "https://github.com/dcardenasl/ci4-api-core"
             },
-            "time": "2026-05-16T09:12:44+00:00"
+            "time": "2026-05-24T19:20:41+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
@@ -287,21 +287,21 @@
     "packages-dev": [
         {
             "name": "dcardenasl/ci4-api-scaffolding",
-            "version": "v0.3.1",
+            "version": "v0.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dcardenasl/ci4-api-scaffolding.git",
-                "reference": "6a593d10f9567ceb1ba9ab1f363462a5406a1699"
+                "reference": "0d84aa72b390934075548d372879ccb2b664bfcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dcardenasl/ci4-api-scaffolding/zipball/6a593d10f9567ceb1ba9ab1f363462a5406a1699",
-                "reference": "6a593d10f9567ceb1ba9ab1f363462a5406a1699",
+                "url": "https://api.github.com/repos/dcardenasl/ci4-api-scaffolding/zipball/0d84aa72b390934075548d372879ccb2b664bfcd",
+                "reference": "0d84aa72b390934075548d372879ccb2b664bfcd",
                 "shasum": ""
             },
             "require": {
                 "codeigniter4/framework": "^4.7",
-                "dcardenasl/ci4-api-core": "^0.5.0",
+                "dcardenasl/ci4-api-core": "^0.7.0",
                 "nikic/php-parser": "^5.0",
                 "php": "^8.2"
             },
@@ -322,7 +322,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "0.3.x-dev"
+                    "dev-main": "0.5.x-dev"
                 },
                 "codeigniter4": {
                     "commands": [
@@ -370,7 +370,7 @@
                 "issues": "https://github.com/dcardenasl/ci4-api-scaffolding/issues",
                 "source": "https://github.com/dcardenasl/ci4-api-scaffolding"
             },
-            "time": "2026-05-18T01:53:42+00:00"
+            "time": "2026-05-24T19:21:34+00:00"
         },
         {
             "name": "fakerphp/faker",
