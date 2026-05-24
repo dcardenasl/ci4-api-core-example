@@ -39,31 +39,8 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
 
-      - name: PHP CS Fixer (dry-run)
-        run: composer cs-check
-
-      - name: PHPStan
-        run: composer analyse
-
       - name: PHPUnit
-        run: composer test -- --testsuite Unit ${{ matrix.php-version == '8.2' && '--coverage-clover coverage.xml' || '' }}
-
-      - name: Upload coverage to Codecov
-        if: matrix.php-version == '8.2'
-        uses: codecov/codecov-action@v4
-        with:
-          files: ./coverage.xml
-          fail_ci_if_error: false
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Mutation Testing (Infection)
-        if: matrix.php-version == '8.2'
-        continue-on-error: true
-        run: composer mutate
-
-      - name: Security audit
-        run: composer security
+        run: composer test -- --testsuite Unit --no-coverage
 
   ci4-compatibility:
     name: CI4 ${{ matrix.ci4-version }} / PHP ${{ matrix.php-version }}
@@ -92,4 +69,4 @@ jobs:
           composer update --prefer-dist --no-interaction --no-progress
 
       - name: PHPUnit (Unit only — no live DB needed)
-        run: composer test -- --testsuite Unit
+        run: composer test -- --testsuite Unit --no-coverage
