@@ -1,0 +1,65 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract release notes from CHANGELOG.md
+        id: notes
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+          if [ ! -f CHANGELOG.md ]; then
+            echo "::error::CHANGELOG.md not found in repo root."
+            exit 1
+          fi
+
+          NOTES=$(awk -v ver="${VERSION}" '
+            BEGIN { capture = 0 }
+            /^## \[/ {
+              if (capture) { exit }
+              if ($0 ~ "^## \\[" ver "\\]") { capture = 1; next }
+            }
+            capture { print }
+          ' CHANGELOG.md)
+
+          if [ -z "${NOTES}" ]; then
+            echo "::error::No CHANGELOG section found for version ${VERSION}. Did you forget to rename [Unreleased] before tagging?"
+            exit 1
+          fi
+
+          {
+            echo 'notes<<EOF_RELEASE_NOTES'
+            echo "${NOTES}"
+            echo 'EOF_RELEASE_NOTES'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_NOTES: ${{ steps.notes.outputs.notes }}
+        run: |
+          if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            echo "Release ${GITHUB_REF_NAME} already exists; updating notes."
+            gh release edit "${GITHUB_REF_NAME}" \
+              --notes "$RELEASE_NOTES"
+          else
+            gh release create "${GITHUB_REF_NAME}" \
+              --title "${GITHUB_REF_NAME}" \
+              --notes "$RELEASE_NOTES"
+          fi
