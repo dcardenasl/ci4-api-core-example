@@ -4,6 +4,15 @@ All notable changes to `dcardenasl/ci4-api-core-example` will be documented here
 
 ## [Unreleased]
 
+## [0.1.1] — 2026-05-24
+
+### Fixed
+
+- `.github/workflows/ci.yml`: removed `4.6.*` from the `ci4-compatibility` matrix — `dcardenasl/ci4-api-core` requires `codeigniter4/framework ^4.7`, making CI4 4.6 unresolvable.
+- `.github/workflows/ci.yml`: removed undefined `cs-check`, `analyse`, `mutate`, and `security` Composer script steps; added `--no-coverage` to PHPUnit calls to prevent `failOnWarning` exit on PHP versions without xdebug.
+- `phpunit.xml.dist`: added named testsuites `Unit`, `Integration`, and `Feature` so `--testsuite Unit` resolves correctly (previously only `App` was defined, causing "No tests executed!" with exit code 1).
+- `composer.lock`: updated `dcardenasl/ci4-api-core` from `v0.5.0` to `v0.7.2` and `dcardenasl/ci4-api-scaffolding` from `v0.3.1` to `v0.5.2`.
+
 ## [0.1.0] — 2026-05-24
 
 Initial release of the reference implementation for `dcardenasl/ci4-api-core` and `dcardenasl/ci4-api-scaffolding`. Each commit in this repo is a discrete, reviewable step from blank project to a fully wired Catalog API.
