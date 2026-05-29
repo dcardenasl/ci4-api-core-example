@@ -4,6 +4,14 @@ All notable changes to `dcardenasl/ci4-api-core-example` will be documented here
 
 ## [Unreleased]
 
+## [0.1.2] — 2026-05-29
+
+### Changed
+
+- Updated `dcardenasl/ci4-api-core` to `^0.9.0` to align with the latest platform version.
+- Updated `dcardenasl/ci4-api-scaffolding` to `^0.7.1` to align with the latest platform version.
+
+
 ## [0.1.1] — 2026-05-24
 
 ### Fixed
