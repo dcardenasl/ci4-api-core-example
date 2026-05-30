@@ -10,6 +10,7 @@ All notable changes to `dcardenasl/ci4-api-core-example` will be documented here
 
 - Updated `dcardenasl/ci4-api-core` to `^0.9.0` to align with the latest platform version.
 - Updated `dcardenasl/ci4-api-scaffolding` to `^0.7.1` to align with the latest platform version.
+- Updated `phpunit/phpunit` to `^11.0`; `composer.lock` regenerated with aligned transitive test dependencies.
 
 
 ## [0.1.1] — 2026-05-24
