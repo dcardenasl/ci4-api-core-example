@@ -4,6 +4,12 @@ All notable changes to `dcardenasl/ci4-api-core-example` will be documented here
 
 ## [Unreleased]
 
+## [0.1.3] — 2026-05-31
+
+### Changed
+
+- Aligned `composer.json` repository block pretty-printing for consistency.
+
 ## [0.1.2] — 2026-05-29
 
 ### Changed
