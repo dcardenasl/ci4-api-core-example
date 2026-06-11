@@ -29,7 +29,7 @@
         "dcardenasl/ci4-api-core": "^1.0"
     },
     "require-dev": {
-        "dcardenasl/ci4-api-scaffolding": "^0.7.5",
+        "dcardenasl/ci4-api-scaffolding": "^1.0",
         "fakerphp/faker": "^1.9",
         "mikey179/vfsstream": "^1.6",
         "phpunit/phpunit": "^11.0"
