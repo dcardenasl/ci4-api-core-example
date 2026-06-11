@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "542f25426908b23d9c093a93d2746196",
+    "content-hash": "b11af9385aa7958346ea6fb5ee314a9a",
     "packages": [
         {
             "name": "codeigniter4/framework",
@@ -287,16 +287,16 @@
     "packages-dev": [
         {
             "name": "dcardenasl/ci4-api-scaffolding",
-            "version": "v0.7.7",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dcardenasl/ci4-api-scaffolding.git",
-                "reference": "8115eb32ba2145bc9c82dbfd01c39580595c9492"
+                "reference": "cc8e87edc647d6746dbe9efa671cd6666831894f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dcardenasl/ci4-api-scaffolding/zipball/8115eb32ba2145bc9c82dbfd01c39580595c9492",
-                "reference": "8115eb32ba2145bc9c82dbfd01c39580595c9492",
+                "url": "https://api.github.com/repos/dcardenasl/ci4-api-scaffolding/zipball/cc8e87edc647d6746dbe9efa671cd6666831894f",
+                "reference": "cc8e87edc647d6746dbe9efa671cd6666831894f",
                 "shasum": ""
             },
             "require": {
@@ -370,7 +370,7 @@
                 "issues": "https://github.com/dcardenasl/ci4-api-scaffolding/issues",
                 "source": "https://github.com/dcardenasl/ci4-api-scaffolding"
             },
-            "time": "2026-06-04T08:32:14+00:00"
+            "time": "2026-06-11T03:20:09+00:00"
         },
         {
             "name": "fakerphp/faker",
